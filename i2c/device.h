@@ -4,11 +4,12 @@
 class Device
 {
 public:
-  Device(const char i2cBus[], int addr);
-  int read(int address);
+  Device(const char i2cBus[], uint8_t addr);
+  uint8_t read(uint8_t address);
+  void write(uint8_t address, uint8_t value);
 private:
   int i2cBus_;
-  int addr_;
+  uint8_t addr_;
 };
 
 #endif
