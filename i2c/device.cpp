@@ -24,6 +24,11 @@ std::vector<uint8_t> Device::readMany(uint8_t address, uint8_t length) {
       i2cBus_,
       address,
       rawRead);
+  std::vector<uint8_t> result;
+  for (uint8_t i = 0; i < length; i++) {
+    result.push_back(rawRead[i]);
+  }
+  return result;
 }
 
 void Device::write(uint8_t address, uint8_t value) {
