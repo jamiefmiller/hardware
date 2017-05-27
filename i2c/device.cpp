@@ -2,7 +2,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <linux/i2c-dev.h>
+#include "i2c-dev.h"
 #include <sys/ioctl.h>
 #include <string>
 #include <vector>
@@ -19,6 +19,7 @@ uint8_t Device::read(uint8_t address) {
 }
 
 std::vector<uint8_t> Device::readMany(uint8_t address, uint8_t length) {
+  ioctl(i2cBus_, I2C_SLAVE, addr_);
   uint8_t* rawRead = new uint8_t[length];
   i2c_smbus_read_block_data(
       i2cBus_,
@@ -45,12 +46,4 @@ void Device::writeMany(
       address,
       values.size(),
       values.data());
-}
-
-int main(void) {
-  Device* dev = new Device("/dev/i2c-2", 0x32);
-  dev->write(0x00, 0x40);
-  dev->write(0x36, 0x53);
-  dev->write(0x16, 0);
-  printf("%d\n", dev->read(0x00));
 }

@@ -1,6 +1,9 @@
 #ifndef HARDWARE_I2C_DEVICE_H
 #define HARDWARE_I2C_DEVICE_H
 
+#include <stdint.h>
+#include <vector>
+
 class Device {
   public:
     Device(const char i2cBus[], uint8_t addr);
